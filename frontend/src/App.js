@@ -1,8 +1,11 @@
-import React from 'react'
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
 import logo from './logo.svg';
+import './index.css';
 import './App.css';
-import AuthorList from './components/Author.js'
+import AuthorList from './components/Author.js';
+import FooterItem from './components/Footer.js';
+import HeaderItem from './components/Header.js';
 
 
 class App extends React.Component {
@@ -46,11 +49,15 @@ class App extends React.Component {
     }
 
    render () {
-       return (
-           <div>
-               <AuthorList authors={this.state.authors} />
-           </div>
-       )
+        return (
+            <div className="App">
+                <HeaderItem/>
+
+                <AuthorList authors={this.state.authors} />
+
+                <FooterItem/>
+            </div>
+        )
    }
 }
 

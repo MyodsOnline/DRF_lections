@@ -3,7 +3,7 @@ import React from 'react'
 
 const AuthorItem = ({author}) => {
    return (
-       <tr>
+       <tr class="table_tr">
            <td>
                {author.first_name}
            </td>
