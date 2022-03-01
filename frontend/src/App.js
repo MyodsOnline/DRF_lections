@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './index.css';
 import './App.css';
 import AuthorList from './components/Author.js';
+import BookList from './components/Book.js';
 import FooterItem from './components/Footer.js';
 import HeaderItem from './components/Header.js';
 
@@ -12,29 +13,10 @@ class App extends React.Component {
    constructor(props) {
        super(props)
        this.state = {
-           'authors': []
+           'authors': [],
+           'books': [],
        }
    }
-
-//   componentDidMount() {
-//       const authors = [
-//           {
-//               'first_name': 'Фёдор',
-//               'last_name': 'Достоевский',
-//               'birthday_year': 1821
-//           },
-//           {
-//               'first_name': 'Александр',
-//               'last_name': 'Грин',
-//               'birthday_year': 1880
-//           },
-//       ]
-//       this.setState(
-//           {
-//               'authors': authors
-//           }
-//       )
-//   }
 
     componentDidMount() {
        axios.get('http://127.0.0.1:8083/api/authors/')
@@ -46,6 +28,16 @@ class App extends React.Component {
                    }
                )
            }).catch(error => console.log(error))
+
+       axios.get('http://127.0.0.1:8083/api/books/')
+           .then(response => {
+               const books = response.data
+                   this.setState(
+                   {
+                       'books': books
+                   }
+               )
+           }).catch(error => console.log(error))
     }
 
    render () {
@@ -54,6 +46,7 @@ class App extends React.Component {
                 <HeaderItem/>
 
                 <AuthorList authors={this.state.authors} />
+                <BookList books={this.state.books} />
 
                 <FooterItem/>
             </div>
