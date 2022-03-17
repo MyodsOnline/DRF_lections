@@ -41,26 +41,31 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 #     def list(self, request, *args, **kwargs):
 #         print('Changed list in ModelViewSet')
 #         return super().list(request, *args, **kwargs)
-
-class AuthorApiView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    queryset = Author.objects.all()
-    serializer_class = AuthorModelSerializer
+#
+#
+# class AuthorApiView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorModelSerializer
 
 
 class AuthorModelViewSet(ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
 
+    def get_queryset(self):
+        param = self.request.headers.get('param')
+        return Author.objects.filter(birthday_year__contains=param)
+
 
 class BiographyModelViewSet(ModelViewSet):
     queryset = Biography.objects.all()
     serializer_class = BiographyModelSerializer
-
-
-class BiographyApiView(RetrieveAPIView):
-    renderer_classes = [JSONRenderer]
-    queryset = Biography.objects.all()
-    serializer_class = BiographyModelSerializer
+#
+#
+# class BiographyApiView(RetrieveAPIView):
+#     renderer_classes = [JSONRenderer]
+#     queryset = Biography.objects.all()
+#     serializer_class = BiographyModelSerializer
 
 
 class BookModelViewSet(ModelViewSet):

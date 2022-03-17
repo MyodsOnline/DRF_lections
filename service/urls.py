@@ -17,8 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from authors.views import AuthorModelViewSet, ArticleModelViewSet, BiographyModelViewSet, BookModelViewSet,\
-    AuthorApiView, BiographyApiView
+from authors.views import AuthorModelViewSet, ArticleModelViewSet, BiographyModelViewSet, BookModelViewSet #,AuthorApiView, BiographyApiView
 
 router = DefaultRouter()
 router.register('authors', AuthorModelViewSet)
@@ -31,7 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('authors/', AuthorApiView.as_view({'get': 'list'})),
+    # path('authors/', AuthorApiView.as_view({'get': 'list'})),
     # path('authors/', include(router.urls)),
-    path('biography/retrieve/<int:pk>/', BiographyApiView.as_view()),
+    # path('biography/retrieve/<int:pk>/', BiographyApiView.as_view()),
 ]
