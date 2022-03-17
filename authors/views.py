@@ -8,6 +8,7 @@ from rest_framework import mixins
 from .models import Author, Biography, Book, Article
 from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, ArticleModelSerializer, SimpleAuthorModelSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
+from .filters import ArticleFilter
 
 
 # class AuthorApiView(APIView):
@@ -78,3 +79,4 @@ class ArticleModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Article.objects.all()
     serializer_class = ArticleModelSerializer
+    filterset_class = ArticleFilter
