@@ -25,13 +25,13 @@ router.register('authors', AuthorModelViewSet)
 router.register('books', BookModelViewSet)
 router.register('articles', ArticleModelViewSet)
 router.register('biographies', BiographyModelViewSet)
-router.register('authors_list', AuthorApiView, basename='authors_list')
+# router.register('authors_list', AuthorApiView, basename='authors_list')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    # path('authors/', AuthorApiView.as_view({'get': 'list'})),
-    path('authors/', include(router.urls)),
+    path('authors/', AuthorApiView.as_view({'get': 'list'})),
+    # path('authors/', include(router.urls)),
     path('biography/retrieve/<int:pk>/', BiographyApiView.as_view()),
 ]

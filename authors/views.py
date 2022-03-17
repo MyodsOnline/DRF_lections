@@ -24,13 +24,22 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 #     renderer_classes = [JSONRenderer]
 #     queryset = Author.objects.all()
 #     serializer_class = AuthorModelSerializer
+#
+#
+# class AuthorApiView(viewsets.ViewSet):
+#     def list(self, request):
+#         authors = Author.objects.all()
+#         serializer = SimpleAuthorModelSerializer(authors, many=True)
+#         return Response(serializer.data)
 
 
-class AuthorApiView(viewsets.ViewSet):
-    def list(self, request):
-        authors = Author.objects.all()
-        serializer = SimpleAuthorModelSerializer(authors, many=True)
-        return Response(serializer.data)
+class AuthorApiView(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorModelSerializer
+
+    def list(self, request, *args, **kwargs):
+        print('Changed list in ModelViewSet')
+        return super().list(request, *args, **kwargs)
 
 
 class AuthorModelViewSet(ModelViewSet):
