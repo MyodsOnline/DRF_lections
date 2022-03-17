@@ -3,6 +3,7 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import mixins
 
 from .models import Author, Biography, Book, Article
 from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, ArticleModelSerializer, SimpleAuthorModelSerializer
@@ -31,15 +32,19 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 #         authors = Author.objects.all()
 #         serializer = SimpleAuthorModelSerializer(authors, many=True)
 #         return Response(serializer.data)
+#
+#
+# class AuthorApiView(viewsets.ModelViewSet):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorModelSerializer
+#
+#     def list(self, request, *args, **kwargs):
+#         print('Changed list in ModelViewSet')
+#         return super().list(request, *args, **kwargs)
 
-
-class AuthorApiView(viewsets.ModelViewSet):
+class AuthorApiView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
-
-    def list(self, request, *args, **kwargs):
-        print('Changed list in ModelViewSet')
-        return super().list(request, *args, **kwargs)
 
 
 class AuthorModelViewSet(ModelViewSet):
