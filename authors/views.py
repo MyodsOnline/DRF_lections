@@ -5,19 +5,24 @@ from rest_framework.viewsets import ModelViewSet
 
 from .models import Author, Biography, Book, Article
 from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, ArticleModelSerializer, SimpleAuthorModelSerializer
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 
 
-class AuthorApiView(APIView):
+# class AuthorApiView(APIView):
+#     # def get(self, request):
+#     #     # print(request.query_params)
+#     #     # print(request.headers)
+#     #     authors = Author.objects.all()
+#     #     serializer = SimpleAuthorModelSerializer(authors, many=True)
+#     #     return Response(serializer.data)
+#     #
+#     # def post(self, request):
+#     #     return Response('tatata - post')
 
-    def get(self, request):
-        # print(request.query_params)
-        # print(request.headers)
-        authors = Author.objects.all()
-        serializer = SimpleAuthorModelSerializer(authors, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        return Response('tatata - post')
+class AuthorApiView(ListAPIView, CreateAPIView):
+    renderer_classes = [JSONRenderer]
+    queryset = Author.objects.all()
+    serializer_class = AuthorModelSerializer
 
 
 class AuthorModelViewSet(ModelViewSet):
@@ -26,6 +31,12 @@ class AuthorModelViewSet(ModelViewSet):
 
 
 class BiographyModelViewSet(ModelViewSet):
+    queryset = Biography.objects.all()
+    serializer_class = BiographyModelSerializer
+
+
+class BiographyApiView(RetrieveAPIView):
+    renderer_classes = [JSONRenderer]
     queryset = Biography.objects.all()
     serializer_class = BiographyModelSerializer
 
