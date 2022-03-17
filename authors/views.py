@@ -1,3 +1,4 @@
+from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,10 +20,17 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 #     # def post(self, request):
 #     #     return Response('tatata - post')
 
-class AuthorApiView(ListAPIView, CreateAPIView):
-    renderer_classes = [JSONRenderer]
-    queryset = Author.objects.all()
-    serializer_class = AuthorModelSerializer
+# class AuthorApiView(ListAPIView, CreateAPIView):
+#     renderer_classes = [JSONRenderer]
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorModelSerializer
+
+
+class AuthorApiView(viewsets.ViewSet):
+    def list(self, request):
+        authors = Author.objects.all()
+        serializer = SimpleAuthorModelSerializer(authors, many=True)
+        return Response(serializer.data)
 
 
 class AuthorModelViewSet(ModelViewSet):
