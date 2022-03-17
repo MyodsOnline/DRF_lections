@@ -51,10 +51,11 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 class AuthorModelViewSet(ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
+    filterset_fields = ['first_name', 'birthday_year']
 
-    def get_queryset(self):
-        param = self.request.headers.get('param')
-        return Author.objects.filter(birthday_year__contains=param)
+    # def get_queryset(self):
+    #     param = self.request.headers.get('param')
+    #     return Author.objects.filter(birthday_year__contains=param)
 
 
 class BiographyModelViewSet(ModelViewSet):
