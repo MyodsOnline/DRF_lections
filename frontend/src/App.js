@@ -1,7 +1,16 @@
 import React from 'react';
 import AuthorList from './components/Author.js';
 import BookList from './components/Book.js';
+import AuthorBookList from './components/AuthorBook.js'
+import {HashRouter, Route, Link, Switch, Redirect} from 'react-router-dom'
 
+
+const NotFound404 = ({ location }) => {
+    return (
+        <div>
+            <h1>Страница по адресу {location.pathname} не найдена</h1>
+        </div> )
+}
 
 class App extends React.Component {
 
@@ -26,8 +35,27 @@ class App extends React.Component {
    render () {
         return (
             <div className="App">
-                <AuthorList authors={this.state.authors} />
-                <BookList books={this.state.books} />
+            <HashRouter>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to='/'>Authors</Link>
+                        </li>
+                        <li>
+                            <Link to='/books'>Books</Link>
+                        </li>
+                    </ul>
+                </nav>
+                <Switch>
+                    <Route exact path='/' component={() => <AuthorList authors={this.state.authors} />} />
+                    <Route exact path='/books' component={() => <BookList books={this.state.books} />} />
+                    <Route path="/author/:id">
+                        <AuthorBookList books={this.state.books} />
+                    </Route>
+                    <Redirect from='/authors' to='/' />
+                    <Route component={NotFound404} />
+                </Switch>
+            </HashRouter>
             </div>
         )
    }
