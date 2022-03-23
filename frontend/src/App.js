@@ -1,8 +1,14 @@
 import React from 'react';
+import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom'
+
 import AuthorList from './components/Author.js';
 import BookList from './components/Book.js';
-import AuthorBookList from './components/AuthorBook.js'
-import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom'
+import ArticleList from './components/Articles.js';
+import BiographyList from './components/Biography.js';
+
+import AuthorBookList from './components/AuthorBook.js';
+import AuthorArticleList from './components/AuthorArticle.js';
+import AuthorBiographyList from './components/AuthorBiography.js';
 
 
 const NotFound404 = ({ location }) => {
@@ -19,46 +25,62 @@ class App extends React.Component {
 
        const author1 = {id:1, name: 'Green', birthday_year: 1666}
        const author2 = {id:2, name: 'Pushka', birthday_year: 1999}
-       const authors = [author1, author2]
+       const author3 = {id:3, name: 'Kolivan', birthday_year: 1696}
+       const authors = [author1, author2, author3]
 
        const book1 = {id:1, name: 'Green Book', author: author1}
        const book2 = {id:2, name: 'Pushka Book', author: author2}
        const book3 = {id:3, name: 'Second Pushka Book', author: author2}
-       const books = [book1, book2, book3]
+       const book4 = {id:4, name: 'Which book', author: author3}
+       const books = [book1, book2, book3, book4]
+
+       const article1 = {id:1, name: 'Article_1', author: author1}
+       const article2 = {id:2, name: 'Earth is fine', author: author3}
+       const articles = [article1, article2]
+
+       const biography1 = {id:1, text: 'Green life matter', author: author3}
+       const biography2 = {id:2, text: 'Its alive', author: author2}
+       const biographies = [biography1, biography2]
 
        this.state = {
-           'authors': authors,
-           'books': books,
+            'authors': authors,
+            'books': books,
+            'articles': articles,
+            'biographies': biographies,
+            }
        }
-   }
 
-   render () {
+    render() {
         return (
             <div className="App">
-            <BrowserRouter>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to='/'>Authors</Link>
-                        </li>
-                        <li>
-                            <Link to='/books'>Books</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <Switch>
-                    <Route exact path='/' component={() => <AuthorList authors={this.state.authors} />} />
-                    <Route exact path='/books' component={() => <BookList books={this.state.books} />} />
-                    <Route path="/author/:id">
-                        <AuthorBookList books={this.state.books} />
-                    </Route>
-                    <Redirect from='/authors' to='/' />
-                    <Route component={NotFound404} />
-                </Switch>
-            </BrowserRouter>
+                <BrowserRouter>
+                    <nav>
+                        <ul>
+                            <li><Link to='/'>Authors</Link></li>
+                            <li><Link to='/books'>Books</Link></li>
+                            <li><Link to='/articles'>Articles</Link></li>
+                            <li><Link to='/biographies'>Biographies</Link></li>
+                        </ul>
+                    </nav>
+                    <Switch>
+                        <Route exact path='/' component={() => <AuthorList authors={this.state.authors} />} />
+                        <Route exact path='/books' component={() => <BookList books={this.state.books} />} />
+                        <Route exact path='/articles' component={() => <ArticleList articles={this.state.articles} />} />
+                        <Route exact path='/biographies' component={() => <BiographyList biographies={this.state.biographies} />} />
+                        <Route path="/author/:id">
+                            <AuthorBookList books={this.state.books} />
+                            <AuthorArticleList articles={this.state.articles} />
+                        </Route>
+                        <Route path="/authorbio/:id">
+                            <AuthorBiographyList biographies={this.state.biographies} />
+                        </Route>
+                        <Redirect from='/authors' to='/' />
+                        <Route component={NotFound404} />
+                    </Switch>
+                </BrowserRouter>
             </div>
         )
-   }
+    }
 }
 
 

@@ -5,9 +5,11 @@ import {Link} from 'react-router-dom'
 const AuthorItem = ({author}) => {
    return (
        <tr class="table_tr">
-           <td><Link to={`author/${author.id}`}>{author.id}</Link></td>
+           <td>{author.id}</td>
            <td>{author.name}</td>
            <td>{author.birthday_year}</td>
+           <td><Link to={`author/${author.id}`}>...</Link></td>
+           <td><Link to={`authorbio/${author.id}`}>...</Link></td>
        </tr>
    )
 }
@@ -15,12 +17,18 @@ const AuthorItem = ({author}) => {
 const AuthorList = ({authors}) => {
    return (
        <table>
-           <tr>
-               <th>id</th>
-               <th>Name</th>
-               <th>Birthday year</th>
-           </tr>
-           {authors.map((author) => <AuthorItem author={author} />)}
+           <thead>
+               <tr>
+                   <th>id</th>
+                   <th>Name</th>
+                   <th>Birthday year</th>
+                   <th>Author books & articles</th>
+                   <th>Author biography</th>
+               </tr>
+           </thead>
+           <tbody>
+                {authors.map((author) => <AuthorItem author={author} />)}
+           </tbody>
        </table>
    )
 }
