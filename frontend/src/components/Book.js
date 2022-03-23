@@ -4,12 +4,9 @@ import React from 'react'
 const BookItem = ({book}) => {
    return (
        <tr class="table_tr">
-           <td>
-               {book.name}
-           </td>
-           <td>
-               {book.authors}
-           </td>
+           <td>{book.id}</td>
+           <td>{book.name}</td>
+           <td>{book.author.name}</td>
        </tr>
    )
 }
@@ -17,12 +14,11 @@ const BookItem = ({book}) => {
 const BookList = ({books}) => {
    return (
        <table>
-           <th>
-               Name
-           </th>
-           <th>
-               Authors
-           </th>
+           <tr>
+               <th>id</th>
+               <th>Name</th>
+               <th>Author</th>
+           </tr>
            {books.map((book) => <BookItem book={book} />)}
        </table>
    )

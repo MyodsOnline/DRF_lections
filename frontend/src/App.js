@@ -1,79 +1,65 @@
 import React from 'react';
-import axios from 'axios';
-import logo from './logo.svg';
-import './index.css';
-import './App.css';
 import AuthorList from './components/Author.js';
 import BookList from './components/Book.js';
-import FooterItem from './components/Footer.js';
-import HeaderItem from './components/Header.js';
+import AuthorBookList from './components/AuthorBook.js'
+import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom'
 
+
+const NotFound404 = ({ location }) => {
+    return (
+        <div>
+            <h1>Страница по адресу {location.pathname} не найдена</h1>
+        </div> )
+}
 
 class App extends React.Component {
+
    constructor(props) {
        super(props)
+
+       const author1 = {id:1, name: 'Green', birthday_year: 1666}
+       const author2 = {id:2, name: 'Pushka', birthday_year: 1999}
+       const authors = [author1, author2]
+
+       const book1 = {id:1, name: 'Green Book', author: author1}
+       const book2 = {id:2, name: 'Pushka Book', author: author2}
+       const book3 = {id:3, name: 'Second Pushka Book', author: author2}
+       const books = [book1, book2, book3]
+
        this.state = {
-           'authors': [],
-           'books': [],
+           'authors': authors,
+           'books': books,
        }
    }
-
-    componentDidMount() {
-       axios.get('http://127.0.0.1:8083/api/authors/')
-           .then(response => {
-               const authors = response.data
-                   this.setState(
-                   {
-                       'authors': authors
-                   }
-               )
-           }).catch(error => console.log(error))
-
-       axios.get('http://127.0.0.1:8083/api/books/')
-           .then(response => {
-               const books = response.data
-                   this.setState(
-                   {
-                       'books': books
-                   }
-               )
-           }).catch(error => console.log(error))
-    }
 
    render () {
         return (
             <div className="App">
-                <HeaderItem/>
-
-                <AuthorList authors={this.state.authors} />
-                <BookList books={this.state.books} />
-
-                <FooterItem/>
+            <BrowserRouter>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to='/'>Authors</Link>
+                        </li>
+                        <li>
+                            <Link to='/books'>Books</Link>
+                        </li>
+                    </ul>
+                </nav>
+                <Switch>
+                    <Route exact path='/' component={() => <AuthorList authors={this.state.authors} />} />
+                    <Route exact path='/books' component={() => <BookList books={this.state.books} />} />
+                    <Route path="/author/:id">
+                        <AuthorBookList books={this.state.books} />
+                    </Route>
+                    <Redirect from='/authors' to='/' />
+                    <Route component={NotFound404} />
+                </Switch>
+            </BrowserRouter>
             </div>
         )
    }
 }
 
-
-//function App() {
-//  return (
-//    <div className="App">
-//      <header className="App-header">
-//        <img src={logo} className="App-logo" alt="logo" />
-//        <p>
-//          Edit <code>src/App.js</code> and save to reload.
-//        </p>
-//        <a
-//          className="App-link"
-//          href="https://reactjs.org"
-//          target="_blank"
-//          rel="noopener noreferrer"
-//        >
-//          Learn React
-//        </a>
-//      </header>
-//    </div>
-//  );
-//}
 
 export default App;
