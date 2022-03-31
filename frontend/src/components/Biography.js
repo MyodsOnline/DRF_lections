@@ -3,7 +3,7 @@ import React from 'react'
 
 const BiographyItem = ({biography}) => {
     return (
-        <tr class="table_tr">
+        <tr className="table_tr">
             <td>{biography.id}</td>
             <td>{biography.text}</td>
             <td>{biography.author.name}</td>
@@ -19,7 +19,7 @@ const BiographyList = ({biographies}) => {
                 <th>biography_text</th>
                 <th>author_name</th>
             </tr>
-            {biographies.map((biography) => <BiographyItem biography={biography} />)}
+            {biographies.map((biography) => <BiographyItem key={biography.id} biography={biography} />)}
         </table>
     )
 }
