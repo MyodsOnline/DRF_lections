@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 const AuthorItem = ({author}) => {
    return (
-       <tr class="table_tr">
+       <tr className="table_tr">
            <td>{author.id}</td>
            <td>{author.name}</td>
            <td>{author.birthday_year}</td>
@@ -27,7 +27,7 @@ const AuthorList = ({authors}) => {
                </tr>
            </thead>
            <tbody>
-                {authors.map((author) => <AuthorItem author={author} />)}
+                {authors.map((author) => <AuthorItem key={author.id} author={author} />)}
            </tbody>
        </table>
    )

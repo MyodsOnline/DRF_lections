@@ -3,7 +3,7 @@ import React from 'react'
 
 const ArticleItem = ({article}) => {
     return (
-        <tr class="table_tr">
+        <tr className="table_tr">
             <td>{article.id}</td>
             <td>{article.name}</td>
             <td>{article.author.name}</td>
@@ -19,7 +19,7 @@ const ArticleList = ({articles}) => {
                 <th>article_name</th>
                 <th>author_name</th>
             </tr>
-            {articles.map((article) => <ArticleItem article={article} />)}
+            {articles.map((article) => <ArticleItem key={article.id} article={article} />)}
         </table>
     )
 }
