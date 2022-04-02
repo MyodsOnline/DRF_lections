@@ -6,8 +6,8 @@ const AuthorItem = ({author}) => {
    return (
        <tr className="table_tr">
            <td>{author.id}</td>
-           <td>{author.name}</td>
-           <td>{author.birthday_year}</td>
+           <td>{author.firstName}</td>
+           <td>{author.birthdayYear}</td>
            <td><Link to={`author/${author.id}`}>...</Link></td>
            <td><Link to={`authorbio/${author.id}`}>...</Link></td>
        </tr>
