@@ -51,7 +51,7 @@ from .filters import ArticleFilter
 
 
 class AuthorModelViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
     filterset_fields = ['first_name', 'birthday_year']
@@ -62,6 +62,7 @@ class AuthorModelViewSet(ModelViewSet):
 
 
 class BiographyModelViewSet(ModelViewSet):
+    permission_classes = [IsAdminUser]
     queryset = Biography.objects.all()
     serializer_class = BiographyModelSerializer
 #
@@ -78,7 +79,6 @@ class BookModelViewSet(ModelViewSet):
 
 
 class ArticleModelViewSet(ModelViewSet):
-    permission_classes = [IsAdminUser]
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Article.objects.all()
     serializer_class = ArticleModelSerializer

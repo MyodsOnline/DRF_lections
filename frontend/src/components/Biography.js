@@ -6,7 +6,7 @@ const BiographyItem = ({biography}) => {
         <tr className="table_tr">
             <td>{biography.id}</td>
             <td>{biography.text}</td>
-            <td>{biography.author.name}</td>
+            <td>{biography.author.firstName}</td>
         </tr>
     )
 }

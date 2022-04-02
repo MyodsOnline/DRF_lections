@@ -2,7 +2,7 @@ from rest_framework.serializers import HyperlinkedModelSerializer, StringRelated
 from .models import Author, Biography, Book, Article
 
 
-class AuthorModelSerializer(HyperlinkedModelSerializer):
+class AuthorModelSerializer(ModelSerializer):
     class Meta:
         model = Author
         fields = '__all__'
@@ -14,20 +14,20 @@ class SimpleAuthorModelSerializer(ModelSerializer):
         fields = ['first_name', 'last_name']
 
 
-class BiographyModelSerializer(HyperlinkedModelSerializer):
+class BiographyModelSerializer(ModelSerializer):
     author = SimpleAuthorModelSerializer()
 
     class Meta:
         model = Biography
-        fields = ['text', 'author']
+        fields = '__all__'
 
 
-class BookModelSerializer(HyperlinkedModelSerializer):
-    authors = StringRelatedField(many=True)
+class BookModelSerializer(ModelSerializer):
+    authors = SimpleAuthorModelSerializer(many=True)
 
     class Meta:
         model = Book
-        exclude = ['url']
+        fields = '__all__'
 
 
 class ArticleModelSerializer(ModelSerializer):
@@ -35,4 +35,5 @@ class ArticleModelSerializer(ModelSerializer):
 
     class Meta:
         model = Article
-        exclude = ['name']
+        fields = '__all__'
+        # exclude = ['name']
