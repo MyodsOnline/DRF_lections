@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-token-auth/', views.obtain_auth_token),
     # re_path(r'^api/(?P<version>\d)/authors/$', AuthorModelViewSet.as_view()),
-    path('api/1/authors/', include('authors.urls', namespace='1')),
-    path('api/2/authors/', include('authors.urls', namespace='2')),
+    # path('api/1/authors/', include('authors.urls', namespace='1')),
+    # path('api/2/authors/', include('authors.urls', namespace='2')),
+    path('api/authors/', AuthorModelViewSet.as_view()),
 ]
