@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'drf_yasg',
+    'graphene_django',
     # 'rest_framework_simplejwt',
 ]
 
@@ -177,4 +178,8 @@ REST_FRAMEWORK = {
     # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
+}
+
+GRAPHENE = {
+    'SCHEMA': 'service.schema.schema'
 }
